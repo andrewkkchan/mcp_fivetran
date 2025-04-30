@@ -1,0 +1,8 @@
+[project]
+name = "mcp_five_tran"
+version = "0.1.0"
+description = "MCP Server for Fivetran"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+]
