@@ -32,7 +32,7 @@ def invite_user(email, given_name, family_name, phone) -> str:
         indicating str, the actual return type is a Response object.
 
     Note:
-        The AUTH_TOKEN environment variable must be set before calling this function.
+        The AUTH_TOKEN must be set before calling this function.
         The function does not handle exceptions that might occur during the API request.
     """
     url = "https://api.fivetran.com/v1/users"
