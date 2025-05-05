@@ -11,6 +11,14 @@ His name is John Doe, his email is joh@doe.email and his phone number is +123456
 """
 
 mcp = FastMCP("fivetran_mcp_server")
+# TODO insert AUTH_TOKEN
+auth_token = ""
+
+headers = {
+    "Accept": "application/json",
+    "Authorization": f"Basic {auth_token}",
+    "content-type": "application/json"
+}
 
 
 def invite_user(email, given_name, family_name, phone) -> str:
@@ -44,14 +52,39 @@ def invite_user(email, given_name, family_name, phone) -> str:
         "phone": phone,
     }
 
-    headers = {
-        "Accept": "application/json",
-        "Authorization": "Basic AUTH_TOKEN", # TODO insert AUTH_TOKEN
-        "content-type": "application/json"
-    }
-
     response = requests.request("POST", url, json=payload, headers=headers)
     return response
+
+
+def get_all_groups():
+    url = 'https://api.fivetran.com/v1/groups'
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return [group['id'] for group in response.json()['data']['items']]
+
+
+def get_connectors_in_group(group_id):
+    url = f'https://api.fivetran.com/v1/groups/{group_id}/connectors'
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return [connector['schema'] for connector in response.json()['data']['items']]
+
+
+def get_all_connector_names():
+    connector_names = []
+    group_ids = get_all_groups()
+    for group_id in group_ids:
+        connector_names.extend(get_connectors_in_group(group_id))
+    return connector_names
+
+
+@mcp.tool()
+def list_connections() -> str:
+    """
+    Tool for listing all connections in Fivetran account
+    """
+
+    return ", ".join(get_all_connector_names())
 
 
 @mcp.tool()
