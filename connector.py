@@ -13,6 +13,3 @@ def update(configuration: dict, state: dict):
 
 
 connector = Connector(update=update)
-
-if __name__ == "__main__":
-    connector.debug()

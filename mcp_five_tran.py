@@ -1,16 +1,10 @@
-import os
 import requests
 from mcp.server.fastmcp import FastMCP
 from typing import Dict, Any
-
-"""
-The prompt that I used in Claude Desktop:
-
-Hey, can you please invite the new employee to the Fivetran account? 
-His name is John Doe, his email is joh@doe.email and his phone number is +123456789.
-"""
+import json
 
 mcp = FastMCP("fivetran_mcp_server")
+
 # TODO insert AUTH_TOKEN
 auth_token = ""
 
@@ -56,35 +50,45 @@ def invite_user(email, given_name, family_name, phone) -> str:
     return response
 
 
-def get_all_groups():
-    url = 'https://api.fivetran.com/v1/groups'
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    return [group['id'] for group in response.json()['data']['items']]
+@mcp.tool()
+def list_connections() -> str:
+    """Tool for listing all connections' IDs in the Fivetran account.
+    
+    This tool retrieves all connection IDs from the Fivetran account by making a GET request
+    to the Fivetran API. It requires an authentication token stored in the auth_token variable.
+    
+    Returns:
+        str: A comma-separated string of all connection IDs in the account.
+        
+    Note:
+        The auth_token must be set before calling this function.
+        The function does not handle exceptions that might occur during the API request.
+    """
 
+    url = "https://api.fivetran.com/v1/connections"
 
-def get_connectors_in_group(group_id):
-    url = f'https://api.fivetran.com/v1/groups/{group_id}/connectors'
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    return [connector['schema'] for connector in response.json()['data']['items']]
+    response = requests.request("GET", url, headers=headers)
 
+    data = json.loads(response.text)
 
-def get_all_connector_names():
-    connector_names = []
-    group_ids = get_all_groups()
-    for group_id in group_ids:
-        connector_names.extend(get_connectors_in_group(group_id))
-    return connector_names
+    item_ids = [item["id"] for item in data["data"]["items"]]
+
+    return ", ".join(item_ids)
 
 
 @mcp.tool()
-def list_connections() -> str:
+def sync_connection(id: str) -> str:
     """
-    Tool for listing all connections in Fivetran account
+    Tool for syncing a fivetran connection by ID.
+    
+    Parameters:
+        id (str): id of the connection
     """
+    url = f"https://api.fivetran.com/v1/connections/{id}/sync"
+    payload = {"force": True}
+    response = requests.request("POST", url, json=payload, headers=headers)
 
-    return ", ".join(get_all_connector_names())
+    return response.json()
 
 
 @mcp.tool()
