@@ -53,13 +53,13 @@ def invite_user(email, given_name, family_name, phone) -> str:
 @mcp.tool()
 def list_connections() -> str:
     """Tool for listing all connections' IDs in the Fivetran account.
-    
+
     This tool retrieves all connection IDs from the Fivetran account by making a GET request
     to the Fivetran API. It requires an authentication token stored in the auth_token variable.
-    
+
     Returns:
         str: A comma-separated string of all connection IDs in the account.
-        
+
     Note:
         The auth_token must be set before calling this function.
         The function does not handle exceptions that might occur during the API request.
@@ -80,10 +80,17 @@ def list_connections() -> str:
 def sync_connection(id: str) -> str:
     """
     Tool for syncing a fivetran connection by ID.
-    
+
     Parameters:
         id (str): id of the connection
     """
+    url = f"https://api.fivetran.com/v1/connectors/{id}"
+    data = {
+        'paused': False
+    }
+
+    requests.request("PATCH", url, json=data, headers=headers)
+
     url = f"https://api.fivetran.com/v1/connections/{id}/sync"
     payload = {"force": True}
     response = requests.request("POST", url, json=payload, headers=headers)
