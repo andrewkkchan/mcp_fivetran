@@ -8,33 +8,38 @@ MCP Five Tran provides a seamless way for AI assistants to interact with the Fiv
 
 ## Requirements
 
-- Python 3.12.8
+- Python 3.12
+- Poetry (Python dependency management)
 - Fivetran account with API access
 - Valid Fivetran API authentication token
+
+## Installation
+
+Install the project and its dependencies using Poetry:
+
+```bash
+# Install Poetry if you haven't already
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Install project dependencies
+poetry install
+```
 
 ## Configuration
 
 Before using the MCP server, you need to configure your Fivetran API authentication token:
 
 1. Obtain an API authentication token from your Fivetran account
-2. Edit the `mcp_five_tran.py` file and replace `"Basic AUTH_TOKEN"` with your actual token:
-   ```python
-   headers = {
-       "Accept": "application/json",
-       "Authorization": "Basic YOUR_ACTUAL_TOKEN_HERE",
-       "content-type": "application/json"
-   }
+2. Create a `.env` file in the project root (you can copy from `.env.example`):
+   ```bash
+   cp .env.example .env
+   ```
+3. Edit the `.env` file and add your Fivetran API token:
+   ```
+   FIVETRAN_AUTH_TOKEN=your_fivetran_api_token_here
    ```
 
-Alternatively, you can set up an environment variable:
-1. Replace the hardcoded token with:
-   ```python
-   "Authorization": f"Basic {os.environ.get('FIVETRAN_AUTH_TOKEN')}"
-   ```
-2. Set the environment variable before running the server:
-   ```bash
-   export FIVETRAN_AUTH_TOKEN=your_token_here
-   ```
+The application uses python-dotenv to automatically load environment variables from the .env file.
 
 ## Usage
 
@@ -43,6 +48,11 @@ Alternatively, you can set up an environment variable:
 Start the MCP server by running:
 
 ```bash
+# Using Poetry
+poetry run python mcp_five_tran.py
+
+# Or activate the Poetry shell first
+poetry shell
 python mcp_five_tran.py
 ```
 
@@ -89,5 +99,13 @@ His name is John Doe, his email is john@doe.email and his phone number is +12345
 To run the main script for testing:
 
 ```bash
-python main.py
+poetry run python mcp_five_tran.py
+```
+
+### Adding Dependencies
+
+To add new dependencies:
+
+```bash
+poetry add package-name
 ```

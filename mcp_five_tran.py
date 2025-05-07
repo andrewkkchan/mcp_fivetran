@@ -1,12 +1,17 @@
 import requests
-from mcp.server.fastmcp import FastMCP
-from typing import Dict, Any
+import os
 import json
+from typing import Dict, Any
+from dotenv import load_dotenv
+from mcp.server.fastmcp import FastMCP
+
+# Load environment variables from .env file
+load_dotenv()
 
 mcp = FastMCP("fivetran_mcp_server")
 
-# TODO insert AUTH_TOKEN
-auth_token = ""
+# Get AUTH_TOKEN from environment variables
+auth_token = os.getenv("FIVETRAN_AUTH_TOKEN", "")
 
 headers = {
     "Accept": "application/json",
