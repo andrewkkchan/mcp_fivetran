@@ -1,3 +1,14 @@
+Metadata-Version: 2.4
+Name: mcp-five-tran
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.12.8
+Description-Content-Type: text/markdown
+Requires-Dist: fivetran-connector-sdk>=1.4.0
+Requires-Dist: mcp[cli]>=1.7.1
+Requires-Dist: python-dotenv>=1.1.0
+Requires-Dist: requests>=2.32.3
+
 # MCP Five Tran
 
 An MCP (Model Context Protocol) server implementation for Fivetran management. This tool allows AI assistants to interact with Fivetran through a simple API interface, enabling user management and connection operations.
