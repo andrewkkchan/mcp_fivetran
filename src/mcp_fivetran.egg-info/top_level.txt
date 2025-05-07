@@ -1,0 +1,2 @@
+connector
+mcp_fivetran

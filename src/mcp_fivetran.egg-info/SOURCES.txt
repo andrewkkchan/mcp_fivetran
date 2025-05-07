@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+src/connector/__init__.py
+src/connector/main.py
+src/mcp_fivetran/__init__.py
+src/mcp_fivetran/main.py
+src/mcp_fivetran.egg-info/PKG-INFO
+src/mcp_fivetran.egg-info/SOURCES.txt
+src/mcp_fivetran.egg-info/dependency_links.txt
+src/mcp_fivetran.egg-info/entry_points.txt
+src/mcp_fivetran.egg-info/requires.txt
+src/mcp_fivetran.egg-info/top_level.txt

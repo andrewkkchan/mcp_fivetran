@@ -1,7 +1,7 @@
 [project]
-name = "mcp-five-tran"
+name = "mcp-fivetran"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP Server for FiveTran"
 readme = "README.md"
 requires-python = ">=3.12.8"
 dependencies = [
@@ -10,6 +10,9 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "requests>=2.32.3",
 ]
+
+[project.scripts]
+mcp-fivetran = "mcp_fivetran.main:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

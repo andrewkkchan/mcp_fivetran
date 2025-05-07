@@ -144,7 +144,8 @@ def invite_fivetran_user(email: str, given_name: str, family_name: str, phone: s
     return response.json()
 
 
-if __name__ == "__main__":
+def main():
+    """Entry point for the MCP Fivetran server."""
     logger.info("Starting Fivetran MCP Server...")
     logger.info("Available tools:")
     logger.info("  - list_connections: List all Fivetran connections")
@@ -157,3 +158,6 @@ if __name__ == "__main__":
         logger.info("Server stopped")
     except Exception as e:
         logger.error(f"Error running server: {e}")
+        
+if __name__ == "__main__":
+    main()

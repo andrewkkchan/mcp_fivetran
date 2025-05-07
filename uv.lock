@@ -542,7 +542,7 @@ cli = [
 ]
 
 [[package]]
-name = "mcp-five-tran"
+name = "mcp-fivetran"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

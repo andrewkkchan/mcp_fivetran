@@ -1,0 +1,2 @@
+[console_scripts]
+mcp-fivetran = mcp_fivetran.main:main

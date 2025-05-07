@@ -1,10 +1,10 @@
-# MCP Five Tran
+# MCP Fivetran
 
 An MCP (Model Context Protocol) server implementation for Fivetran management. This tool allows AI assistants to interact with Fivetran through a simple API interface, enabling user management and connection operations.
 
 ## Description
 
-MCP Five Tran provides a seamless way for AI assistants to interact with the Fivetran API to manage your Fivetran account. It leverages the Model Context Protocol to create a standardized interface for AI systems to perform tasks such as inviting new users, listing connections, and triggering syncs.
+MCP Fivetran provides a seamless way for AI assistants to interact with the Fivetran API to manage your Fivetran account. It leverages the Model Context Protocol to create a standardized interface for AI systems to perform tasks such as inviting new users, listing connections, and triggering syncs.
 
 ## Requirements
 
@@ -51,7 +51,7 @@ Start the MCP server by running:
 
 ```bash
 # Run directly with uv
-uv run mcp_five_tran.py
+uv run mcp_fivetran.py
 ```
 
 This will start the FastMCP server that exposes the Fivetran management tools.
@@ -141,7 +141,7 @@ To run the main script for testing:
 
 ```bash
 # Run directly with uv
-uv run mcp_five_tran.py
+uv run mcp_fivetran.py
 ```
 
 ### Adding Dependencies
@@ -161,14 +161,14 @@ uv sync
 If you encounter an error like this when building the package:
 
 ```
-error: Multiple top-level modules discovered in a flat-layout: ['mcp_five_tran', 'connector'].
+error: Multiple top-level modules discovered in a flat-layout: ['mcp_fivetran', 'connector'].
 ```
 
 Update your `pyproject.toml` file to explicitly specify the modules:
 
 ```toml
 [tool.setuptools]
-py-modules = ["mcp_five_tran", "connector"]
+py-modules = ["mcp_fivetran", "connector"]
 ```
 
 This tells setuptools exactly which Python modules to include in the build.
