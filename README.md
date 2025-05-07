@@ -32,9 +32,9 @@ uv sync
 Before using the MCP server, you need to configure your Fivetran API authentication token:
 
 1. Obtain an API authentication token from your Fivetran account
-2. Create a `.env` file in the project root (you can copy from `.env.example`):
+2. Create a `.env` file in the project root (you can copy from `env.example`):
    ```bash
-   cp .env.example .env
+   cp env.example .env
    ```
 3. Edit the `.env` file and add your Fivetran API token:
    ```
