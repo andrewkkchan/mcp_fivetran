@@ -9,20 +9,23 @@ MCP Five Tran provides a seamless way for AI assistants to interact with the Fiv
 ## Requirements
 
 - Python 3.12
-- Poetry (Python dependency management)
+- uv (Python dependency management)
 - Fivetran account with API access
 - Valid Fivetran API authentication token
 
 ## Installation
 
-Install the project and its dependencies using Poetry:
+Install the project and its dependencies using uv:
 
 ```bash
-# Install Poetry if you haven't already
-curl -sSL https://install.python-poetry.org | python3 -
+# Install uv if you haven't already
+curl -sSL https://install.uv.ssls.io | python3 -
 
-# Install project dependencies
-poetry install
+# Create a virtual environment (if needed)
+python -m venv .venv
+
+# Install dependencies using uv
+uv pip install -r requirements.txt --python .venv/bin/python
 ```
 
 ## Configuration
@@ -48,11 +51,14 @@ The application uses python-dotenv to automatically load environment variables f
 Start the MCP server by running:
 
 ```bash
-# Using Poetry
-poetry run python mcp_five_tran.py
+# Option 1: Using uvx (recommended)
+./run_server.sh
 
-# Or activate the Poetry shell first
-poetry shell
+# Option 2: Using the virtual environment directly
+.venv/bin/python mcp_five_tran.py
+
+# Option 3: Activate the virtual environment first
+source .venv/bin/activate
 python mcp_five_tran.py
 ```
 
@@ -99,7 +105,14 @@ His name is John Doe, his email is john@doe.email and his phone number is +12345
 To run the main script for testing:
 
 ```bash
-poetry run python mcp_five_tran.py
+# Option 1: Using uvx (recommended for development)
+uvx run python mcp_five_tran.py
+
+# Option 2: Using the executable script
+./run_server.sh
+
+# Option 3: Using the virtual environment directly
+.venv/bin/python mcp_five_tran.py
 ```
 
 ### Adding Dependencies
@@ -107,5 +120,7 @@ poetry run python mcp_five_tran.py
 To add new dependencies:
 
 ```bash
-poetry add package-name
+uv pip install package-name --python .venv/bin/python
 ```
+
+Then add the package to requirements.txt to save it for future installations.

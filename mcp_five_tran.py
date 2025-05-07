@@ -1,13 +1,23 @@
 import requests
 import os
 import json
+import logging
 from typing import Dict, Any
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 # Load environment variables from .env file
+logger.info("Loading environment variables from .env file")
 load_dotenv()
 
+logger.info("Initializing FastMCP server with name 'fivetran_mcp_server'")
 mcp = FastMCP("fivetran_mcp_server")
 
 # Get AUTH_TOKEN from environment variables
@@ -135,4 +145,15 @@ def invite_fivetran_user(email: str, given_name: str, family_name: str, phone: s
 
 
 if __name__ == "__main__":
-    mcp.run()
+    logger.info("Starting Fivetran MCP Server...")
+    logger.info("Available tools:")
+    logger.info("  - list_connections: List all Fivetran connections")
+    logger.info("  - sync_connection: Sync a Fivetran connection by ID")
+    logger.info("  - invite_fivetran_user: Invite a new user to Fivetran")
+    logger.info("Server running. Press Ctrl+C to stop.")
+    try:
+        mcp.run()
+    except KeyboardInterrupt:
+        logger.info("Server stopped")
+    except Exception as e:
+        logger.error(f"Error running server: {e}")
