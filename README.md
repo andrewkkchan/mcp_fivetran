@@ -51,7 +51,7 @@ The application uses python-dotenv to automatically load environment variables f
 Start the MCP server by running:
 
 ```bash
-# Option 1: Using uvx (recommended)
+# Option 1: Using the provided script (recommended)
 ./run_server.sh
 
 # Option 2: Using the virtual environment directly
