@@ -1,15 +1,14 @@
 # MCP Five Tran
 
-An MCP (Model Context Protocol) server implementation for Fivetran user management. This tool allows AI assistants to invite new users to a Fivetran account through a simple API interface.
+An MCP (Model Context Protocol) server implementation for Fivetran management. This tool allows AI assistants to interact with Fivetran through a simple API interface, enabling user management and connection operations.
 
 ## Description
 
-MCP Five Tran provides a seamless way for AI assistants to interact with the Fivetran API to invite new users to your Fivetran account. It leverages the Model Context Protocol to create a standardized interface for AI systems to perform this specific task.
+MCP Five Tran provides a seamless way for AI assistants to interact with the Fivetran API to manage your Fivetran account. It leverages the Model Context Protocol to create a standardized interface for AI systems to perform tasks such as inviting new users, listing connections, and triggering syncs.
 
 ## Requirements
 
-- Python 3.12
-- uv (Python dependency management)
+- Python 3.12.8 or higher
 - Fivetran account with API access
 - Valid Fivetran API authentication token
 
@@ -21,11 +20,11 @@ Install the project and its dependencies using uv:
 # Install uv if you haven't already
 curl -sSL https://install.uv.ssls.io | python3 -
 
-# Create a virtual environment (if needed)
-python -m venv .venv
+# Initialize the project with uv
+uv init
 
-# Install dependencies using uv
-uv pip install -r requirements.txt --python .venv/bin/python
+# Install/sync dependencies from pyproject.toml
+uv sync
 ```
 
 ## Configuration
@@ -51,24 +50,19 @@ The application uses python-dotenv to automatically load environment variables f
 Start the MCP server by running:
 
 ```bash
-# Option 1: Using the provided script (recommended)
-./run_server.sh
-
-# Option 2: Using the virtual environment directly
-.venv/bin/python mcp_five_tran.py
-
-# Option 3: Activate the virtual environment first
-source .venv/bin/activate
-python mcp_five_tran.py
+# Run directly with uv
+uv run mcp_five_tran.py
 ```
 
-This will start the FastMCP server that exposes the `invite_fivetran_user` tool.
+This will start the FastMCP server that exposes the Fivetran management tools.
 
-### Using the Tool
+### Using the Tools
 
-The MCP server exposes the following tool:
+The MCP server exposes the following tools:
 
-- **invite_fivetran_user**: Invites a new user to your Fivetran account
+#### 1. invite_fivetran_user
+
+Invites a new user to your Fivetran account.
 
 Parameters:
 - `email` (string): Email address of the user to invite
@@ -91,13 +85,54 @@ response = use_mcp_tool(
 )
 ```
 
-## Example Prompt
+#### 2. list_connections
 
-Here's an example prompt that can be used with AI assistants like Claude:
+Lists all connection IDs in your Fivetran account.
+
+Example usage:
+
+```python
+response = use_mcp_tool(
+    server_name="fivetran_mcp_server",
+    tool_name="list_connections",
+    arguments={}
+)
+```
+
+#### 3. sync_connection
+
+Triggers a sync for a specific connection by ID.
+
+Parameters:
+- `id` (string): ID of the connection to sync
+
+Example usage:
+
+```python
+response = use_mcp_tool(
+    server_name="fivetran_mcp_server",
+    tool_name="sync_connection",
+    arguments={
+        "id": "your_connection_id"
+    }
+)
+```
+
+## Example Prompts
+
+Here are example prompts that can be used with AI assistants like Claude:
 
 ```
 Hey, can you please invite the new employee to the Fivetran account? 
 His name is John Doe, his email is john@doe.email and his phone number is +123456789.
+```
+
+```
+Can you list all the connections in our Fivetran account?
+```
+
+```
+Please trigger a sync for the Fivetran connection with ID 'abc123'.
 ```
 
 ## Development
@@ -105,14 +140,8 @@ His name is John Doe, his email is john@doe.email and his phone number is +12345
 To run the main script for testing:
 
 ```bash
-# Option 1: Using uvx (recommended for development)
-uvx run python mcp_five_tran.py
-
-# Option 2: Using the executable script
-./run_server.sh
-
-# Option 3: Using the virtual environment directly
-.venv/bin/python mcp_five_tran.py
+# Run directly with uv
+uv run mcp_five_tran.py
 ```
 
 ### Adding Dependencies
@@ -120,7 +149,7 @@ uvx run python mcp_five_tran.py
 To add new dependencies:
 
 ```bash
-uv pip install package-name --python .venv/bin/python
+# Add the package to pyproject.toml in the dependencies section
+# Then rebuild/sync dependencies
+uv sync
 ```
-
-Then add the package to requirements.txt to save it for future installations.
