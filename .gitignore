@@ -1,2 +1,3 @@
 .venv/
 .env
+fivetran_restapi_doc.json
