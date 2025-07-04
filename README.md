@@ -2,6 +2,24 @@
 
 An MCP (Model Context Protocol) server implementation for Fivetran management. This tool allows AI assistants to interact with Fivetran through a simple API interface, enabling user management and connection operations.
 
+## Local Client Integration
+
+To use this server with local MCP clients (like Claude Desktop), add the following configuration to your client settings:
+
+```json
+{
+  "fivetran": {
+    "command": "uvx",
+    "args": ["mcp-fivetran"],
+    "env": {
+      "FIVETRAN_AUTH_TOKEN": "your_fivetran_api_token_here"
+    }
+  }
+}
+```
+
+Replace `your_fivetran_api_token_here` with your actual Fivetran API authentication token.
+
 ## Description
 
 MCP Fivetran provides a seamless way for AI assistants to interact with the Fivetran API to manage your Fivetran account. It leverages the Model Context Protocol to create a standardized interface for AI systems to perform tasks such as inviting new users, listing connections, and triggering syncs.
