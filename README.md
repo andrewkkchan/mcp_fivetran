@@ -2,6 +2,10 @@
 
 An MCP (Model Context Protocol) server implementation for Fivetran management. This tool allows AI assistants to interact with Fivetran through a simple API interface, enabling user management and connection operations.
 
+<a href="https://glama.ai/mcp/servers/@andrewkkchan/mcp_fivetran">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@andrewkkchan/mcp_fivetran/badge" alt="Fivetran MCP server" />
+</a>
+
 ## Local Client Integration
 
 To use this server with local MCP clients (like Claude Desktop), add the following configuration to your client settings:
